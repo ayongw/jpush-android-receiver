@@ -1,14 +1,24 @@
 apply plugin: 'com.android.library'
 
+group repositoryGroup
+
+// 打开aar格式
+apply from: '../release-as-aar.gradle'
+
+//outputFileName = 'jpush-android-receiver-${version}.aar';
+
+def getProductName() {
+    return "jpush-android-receiver";
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName '1.0.0'
+        versionName '1.0.0-SNAPSHOT'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionNameSuffix 'SNAPSHOT'
     }
     buildTypes {
         release {
@@ -17,6 +27,12 @@ android {
         }
     }
     productFlavors {
+    }
+
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = getProductName()+"-${defaultConfig.versionName}"+".aar"
+        }
     }
 }
 
