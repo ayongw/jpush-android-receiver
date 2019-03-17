@@ -1,15 +1,25 @@
-apply plugin: 'com.android.library'
-
 group repositoryGroup
+//def artifactId = 'jpush-android-receiver';
 
+apply plugin: 'com.android.library'
 // 打开aar格式
-apply from: '../release-as-aar.gradle'
-
-//outputFileName = 'jpush-android-receiver-${version}.aar';
+//apply from: '../release-as-aar.gradle'
 
 def getProductName() {
     return "jpush-android-receiver";
 }
+
+ext {
+    PROJ_GROUPID = 'com.github.ayongw'
+    PROJ_ARTIFACTID = 'jpush-android-receiver' //这是项目名字
+    PROJ_VERSION_NAME = "1.0.0-SNAPSHOT" //版本号
+
+    POM_PACKAGING = 'aar'
+
+    RELEASE_REPOSITORY_URL = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    SNAPSHOT_REPOSITORY_URL = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
+
 
 android {
     compileSdkVersion 28
@@ -17,7 +27,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName '1.0.0-SNAPSHOT'
+        versionName '1.0.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,12 +36,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
     productFlavors {
     }
 
     android.libraryVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = getProductName()+"-${defaultConfig.versionName}"+".aar"
+            outputFileName = PROJ_ARTIFACTID + "-" + PROJ_VERSION_NAME + ".aar"
         }
     }
 }
@@ -40,7 +53,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     // 这个依赖是需要对外提供使用的
-    api 'com.github.ayongw:simple-message-center:1.1.0'
+    implementation 'com.github.ayongw:simple-message-center:1.1.0'
     compileOnly 'cn.jiguang.sdk:jpush:3.1.8'
     // 此处以JPush 3.1.1 版本为例。
     compileOnly 'cn.jiguang.sdk:jcore:1.2.7'
@@ -48,4 +61,75 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+uploadArchives {
+
+    repositories {
+        mavenDeployer {
+
+            //从本地文件读取仓库账号和密码
+            def File propFile = new File(project.rootDir.absolutePath + '/mavenAccount.properties')
+            def repoUserName, repoPassword
+
+            if (propFile.canRead()) {
+                def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+
+                if (props != null && props.containsKey('repositoryUserName') && props.containsKey('repositoryPassword')) {
+                    repoUserName = props['repositoryUserName']
+                    repoPassword = props['repositoryPassword']
+//                    println '准备使用的OSS用户：'+repoUserName+", 密码："+repoPassword
+                } else {
+                    println '没有发布权限，没有配置用户信息'
+                    return
+                }
+            } else {
+                println '没有发布权限-没有配置文件'
+                return
+            }
+
+            snapshotRepository(url: SNAPSHOT_REPOSITORY_URL) {
+                authentication(userName: repoUserName, password: repoPassword)
+            }
+            repository(url: RELEASE_REPOSITORY_URL) {
+                authentication(userName: repoUserName, password: repoPassword)
+            }
+
+            pom.project {
+                groupId PROJ_GROUPID
+                version PROJ_VERSION_NAME
+                artifactId PROJ_ARTIFACTID
+                packaging POM_PACKAGING
+
+                name 'JPush Android Receiver'
+                description 'a wrapper for JPush android broadcaster.'
+                url 'https://github.com/ayongw/jpush-android-receiver.git'
+                inceptionYear '2019'
+
+                scm {
+                    url 'https://github.com/ayongw/jpush-android-receiver'
+                    connection 'scm:https://github.com/ayongw/jpush-android-receiver.git'
+                    developerConnection 'scm:git://github.com/ayongw/jpush-android-receiver.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'ayongw'
+                        name 'ayongw'
+                        email 'jiangguangtao@foxmail.com'
+                    }
+                }
+            }
+
+        }
+    }
 }

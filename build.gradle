@@ -10,6 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -43,13 +44,3 @@ subprojects {  //表示除主工程外所有子模块
         deployerJars "org.apache.maven.wagon:wagon-http:2.2"
     }
 }
-
-ext { //仓库选择标记
-    repoType = "remote" //发布到远程仓库（下文中会用到）
-//    repoType = "local" //发布到本地仓库，方便调试，避免调试期间频繁上传到maven仓库（下文中会用到）
-}
-
-//
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
-//}
