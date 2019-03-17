@@ -16,7 +16,7 @@ ext {
     siteUrl = 'https://github.com/ayongw/jpush-android-receiver'
     gitUrl = 'https://github.com/ayongw/jpush-android-receiver.git'
 
-    libraryVersion = '0.0.6'
+    libraryVersion = '0.0.1'
 
     developerId = 'ayongw'
     developerName = 'John Jiang'
