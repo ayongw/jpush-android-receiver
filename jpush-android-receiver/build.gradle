@@ -1,7 +1,36 @@
 apply plugin: 'com.android.library'
-apply plugin: 'signing'
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'jpush-android-receiver'
+
+    publishedGroupId = 'com.github.ayongw'
+    libraryName = 'jpush-android-receiver'
+    publishedArtifactId = 'jpush-android-receiver'
+
+    libraryDescription = 'a wrapper for JPush android broadcaster.'
+
+    siteUrl = 'https://github.com/ayongw/jpush-android-receiver-folder'
+    gitUrl = 'https://github.com/ayongw/jpush-android-receiver-folder.git'
+    issuesUrl = 'https://github.com/ayongw/jpush-android-receiver-folder/issues'
+
+    githubRepoPath = 'ayongw/jpush-android-receiver-folder' //Optional Github repository
+    githubRepoReadme = 'README.md' //Optional Github readme file
+
+    libraryVersion = '0.0.1'
+
+    developerId = 'ayongw'
+    developerName = 'John Jiang'
+    developerEmail = 'jiangguangtao@foxmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 
 android {
     compileSdkVersion 28
@@ -23,12 +52,6 @@ android {
     }
     productFlavors {
     }
-
-    android.libraryVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = GROUP + "-" + POM_ARTIFACT_ID + ".aar"
-        }
-    }
 }
 
 dependencies {
@@ -44,3 +67,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+
+apply from: 'publish-jcenter.gradle'
