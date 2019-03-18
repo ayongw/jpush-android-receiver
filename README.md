@@ -22,6 +22,15 @@
 </receiver>
 ```
 以上配置，会将各操作返回，以消息的发式发送到消息中 SimpleMessageCenter
+发出的消息Holder为
+    cn.jpush.android.service.JPushMessageReceiver
+    
+发出的消息类型有
+    * "jpush.onTagOperatorResult"
+    * "jpush.onCheckTagOperatorResult"
+    * "jpush.onAliasOperatorResult"
+    * "jpush.onMobileNumberOperatorResult"
+
 
 ```
 <!--JPush api核心消息接受器-->
@@ -39,3 +48,8 @@
     </intent-filter>
 </receiver>
 ```
+发出的消息Holder为
+    cn.jpush.android.api.JPushInterface
+    
+发出的消息类型有
+    * "jpushapi.onReceive"
