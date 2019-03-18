@@ -1,12 +1,16 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
 group = publishedGroupId
 version = libraryVersion
 
+// begin maven install segment
 install {
     repositories.mavenInstaller {
         pom.project {
             packaging 'aar'
             groupId publishedGroupId
-            artifactId artifact
+            artifactId publishedArtifactId
 
             name libraryName
             description libraryDescription
@@ -34,14 +38,23 @@ install {
     }
 }
 
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
+// begin bintray deploy segment.
 
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -54,12 +67,9 @@ artifacts {
     archives sourcesJar
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = BINTRAY_USER_NAME
+    key = BINTRAY_API_KEY
 
     configurations = ['archives']
     pkg {
@@ -68,13 +78,22 @@ bintray {
         desc = libraryDescription
         websiteUrl = siteUrl
         vcsUrl = gitUrl
+        issueTrackerUrl = issuesUrl
+        githubRepo = githubRepoPath
+        githubReleaseNotesFile = githubRepoReadme
         licenses = allLicenses
-        dryRun = false
+        dryRun = false   // true表示只模拟执行，不实际进行上传
         publish = true
-        override = false
+        override = true
         publicDownloadNumbers = true
         version {
             desc = libraryDescription
+            name = this.version
+            released = new Date()
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = GPG_SIGN_PASSWORD // Optional. The passphrase for GPG signing'
+            }
         }
     }
 }

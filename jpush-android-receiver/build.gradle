@@ -9,12 +9,16 @@ ext {
 
     publishedGroupId = 'com.github.ayongw'
     libraryName = 'jpush-android-receiver'
-    artifact = 'jpush-android-receiver'
+    publishedArtifactId = 'jpush-android-receiver'
 
     libraryDescription = 'a wrapper for JPush android broadcaster.'
 
-    siteUrl = 'https://github.com/ayongw/jpush-android-receiver'
-    gitUrl = 'https://github.com/ayongw/jpush-android-receiver.git'
+    siteUrl = 'https://github.com/ayongw/jpush-android-receiver-folder'
+    gitUrl = 'https://github.com/ayongw/jpush-android-receiver-folder.git'
+    issuesUrl = 'https://github.com/ayongw/jpush-android-receiver-folder/issues'
+
+    githubRepoPath = 'ayongw/jpush-android-receiver-folder' //Optional Github repository
+    githubRepoReadme = 'README.md' //Optional Github readme file
 
     libraryVersion = '0.0.1'
 
@@ -49,11 +53,11 @@ android {
     productFlavors {
     }
 
-    android.libraryVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = artifact + "-" + libraryVersion + ".aar"
-        }
-    }
+//    android.libraryVariants.all { variant ->
+//        variant.outputs.all {
+//            outputFileName = publishedArtifactId + "-" + libraryVersion + ".aar"
+//        }
+//    }
 }
 
 dependencies {
@@ -71,4 +75,4 @@ dependencies {
 }
 
 
-apply from: '../publish-jcenter.gradle'
+apply from: 'publish-jcenter.gradle'
