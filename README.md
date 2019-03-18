@@ -1,4 +1,5 @@
 # jpush-receiver
+[ ![Download](https://api.bintray.com/packages/ayongw/maven/jpush-android-receiver/images/download.svg) ](https://bintray.com/ayongw/maven/jpush-android-receiver/_latestVersion)
 对JPush推送服务Broadcast类的封装，将直接调用，改为通过消息中心发送消息。
 
 ## 项目依赖
