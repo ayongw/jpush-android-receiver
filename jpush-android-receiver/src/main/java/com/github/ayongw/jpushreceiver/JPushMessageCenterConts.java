@@ -19,7 +19,10 @@ public interface JPushMessageCenterConts {
     String MSG_ON_MOBILE_NUMBER_OPERATOR_RESULT = "jpush.onMobileNumberOperatorResult";
 
     String MSG_ON_RECEIVE = "jpushapi.onReceive";
-
+    /**
+     * action类型的消息名称前缀
+     */
+    String MSG_ON_JPUSH_ACTION_PREFIX = "jpush.api.action.";
 
 
     String FIELD_SMC_MSG_NAME = "smcMsgName";
@@ -34,4 +37,5 @@ public interface JPushMessageCenterConts {
     String FIELD_TAGS = "tags";
 
     String FIELD_RECEIVE_INTENT = "receiveIntent";
+    String FIELD_INTENT_ACTION = "jmcAction";
 }
