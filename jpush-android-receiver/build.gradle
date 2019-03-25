@@ -20,7 +20,7 @@ ext {
     githubRepoPath = 'ayongw/jpush-android-receiver-folder' //Optional Github repository
     githubRepoReadme = 'README.md' //Optional Github readme file
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     developerId = 'ayongw'
     developerName = 'John Jiang'
