@@ -69,21 +69,8 @@ public class MessageCenterJPushApiReceiver extends BroadcastReceiver {
         }
 
         for (String key : extras.keySet()) {
-            if (key.equals(JPushInterface.EXTRA_EXTRA)) {
-                if (TextUtils.isEmpty(extras.getString(JPushInterface.EXTRA_EXTRA))) {
-                    userInfo.put(key, "");
-                    continue;
-                }
-
-                try {
-                    JSONObject json = new JSONObject(extras.getString(JPushInterface.EXTRA_EXTRA));
-                    userInfo.put(key, json);
-                } catch (JSONException e) {
-                    Log.e(TAG, "获取Extra参数，并解析为JSONObject对象异常.", e);
-                }
-            } else {
-                userInfo.put(key, extras.get(key));
-            }
+            Object obj = extras.get(key);
+            userInfo.put(key, obj);
         }
         return userInfo;
     }
