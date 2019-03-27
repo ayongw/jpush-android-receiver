@@ -47,8 +47,8 @@ public class MessageCenterJPushApiReceiver extends BroadcastReceiver {
         Map<String, Object> userInfo = getUserInfo(intent);
 
         String msgName = JPushMessageCenterConts.MSG_ON_JPUSH_ACTION_PREFIX + intent.getAction();
-        userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_HOLDER, msgName);
-        userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_NAME, MSG_HOLDER);
+        userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_HOLDER, MSG_HOLDER);
+        userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_NAME, msgName);
         userInfo.put(JPushMessageCenterConts.FIELD_INTENT_ACTION, intent.getAction());
 
         SimpleMessageCenter.getDefaultCenter()

@@ -71,7 +71,7 @@ public class MessageCenterJPushOperateMessageReceiver extends JPushMessageReceiv
      * @param smcMsgName   消息的事件名称
      * @return 回调中使用的用户信息
      */
-    private Map getUserInfo(JPushMessage jPushMessage, String smcMsgName) {
+    private Map<String, Object> getUserInfo(JPushMessage jPushMessage, String smcMsgName) {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_NAME, smcMsgName);
         userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_HOLDER, MSG_HOLDER);
