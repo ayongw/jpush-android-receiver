@@ -20,7 +20,7 @@ ext {
     githubRepoPath = 'ayongw/jpush-android-receiver-folder' //Optional Github repository
     githubRepoReadme = 'README.md' //Optional Github readme file
 
-    libraryVersion = '0.0.4'
+    libraryVersion = '1.2.0'
 
     developerId = 'ayongw'
     developerName = 'John Jiang'
@@ -37,8 +37,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName '1.0.0'
+        versionCode 10200
+        versionName '1.2.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
