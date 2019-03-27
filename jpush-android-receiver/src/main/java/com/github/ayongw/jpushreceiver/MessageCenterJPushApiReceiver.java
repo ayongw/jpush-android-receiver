@@ -5,17 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.github.ayongw.simplemessagecenter.SimpleMessageCenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * JPush服务接口主要的消息接受类
@@ -31,7 +25,6 @@ import cn.jpush.android.api.JPushInterface;
  * </ul>
  */
 public class MessageCenterJPushApiReceiver extends BroadcastReceiver {
-    public static final String TAG = "JPushApiReceiver";
     /**
      * 定义的本消息的holder
      */
@@ -47,6 +40,7 @@ public class MessageCenterJPushApiReceiver extends BroadcastReceiver {
         Map<String, Object> userInfo = getUserInfo(intent);
 
         String msgName = JPushMessageCenterConts.MSG_ON_JPUSH_ACTION_PREFIX + intent.getAction();
+
         userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_HOLDER, MSG_HOLDER);
         userInfo.put(JPushMessageCenterConts.FIELD_SMC_MSG_NAME, msgName);
         userInfo.put(JPushMessageCenterConts.FIELD_INTENT_ACTION, intent.getAction());
@@ -70,7 +64,9 @@ public class MessageCenterJPushApiReceiver extends BroadcastReceiver {
 
         for (String key : extras.keySet()) {
             Object obj = extras.get(key);
-            userInfo.put(key, obj);
+            if (null != obj) {
+                userInfo.put(key, obj);
+            }
         }
         return userInfo;
     }
