@@ -3,7 +3,9 @@ package com.github.ayongw.jpushreceiver;
 public interface JPushMessageCenterConts {
     /**
      * 操作类消息holder 也相当于一个路由的名称
+     * @deprecated 统一使用 JPUSH_API_MESSAGE_HOLDER
      */
+    @Deprecated
     String OPERATE_MESSAGE_HOLDER = "cn.jpush.android.service.JPushMessageReceiver";
     /**
      * 主要的消息holder
@@ -19,6 +21,7 @@ public interface JPushMessageCenterConts {
     String MSG_ON_MOBILE_NUMBER_OPERATOR_RESULT = "jpush.onMobileNumberOperatorResult";
 
     String MSG_ON_RECEIVE = "jpushapi.onReceive";
+
     /**
      * action类型的消息名称前缀
      */

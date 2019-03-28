@@ -19,7 +19,7 @@ public class MessageCenterJPushOperateMessageReceiver extends JPushMessageReceiv
     /**
      * 定义的本消息的holder
      */
-    public static final String MSG_HOLDER = JPushMessageCenterConts.OPERATE_MESSAGE_HOLDER;
+    public static final String MSG_HOLDER = JPushMessageCenterConts.JPUSH_API_MESSAGE_HOLDER;
 
     @Override
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
